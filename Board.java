@@ -1,10 +1,11 @@
 import java.io.Console;
+import java.util.Scanner;
 
 public class Board{
   private String spacing = "   "; 
   private int height = 8;
   private int width = 8;
-  private int[] heightNumbers = {1,2,3,4,5,6,7,8};
+  private int[] heightNumbers = {8,7,6,5,4,3,2,1};
   private char[] widthChars = {'a','b', 'c', 'd', 'e', 'f', 'g', 'h'};
  
   private char[][] boardInit = {
@@ -22,8 +23,11 @@ public class Board{
   }
   public static void main(String [] args){
    Board chessBoard = new Board();
-   System.out.println("Starting Chess Game ...");
-   chessBoard.startChessGame();
+   System.out.println("Starting Chess Game with white pieces ...");
+   String pos = "a7";
+   int posNew = pos.charAt(1).getNumericValue();
+   System.out.println(posNew);   
+//chessBoard.startChessGame();
  }
   private void startChessGame(){
    this.displayBoard();
@@ -39,7 +43,6 @@ public class Board{
    boolean isValid = false;
    if(checkChar.length()<=1){
    for(int i=0; i<validPieces.length; i++){
-   System.out.println("Check if "+checkChar + " equals " + validPieces[i]); 
    if(checkChar.equals(validPieces[i])){
       isValid=true;
      }
@@ -48,13 +51,16 @@ public class Board{
     return isValid;
    }
   private void enterNextMove(){
+   Scanner input = new Scanner(System.in);
    System.out.println("Enter piece to move: ");
    String piece = this.getUserInput();
    if(checkIfEqual(piece)){
-    System.out.println("Enter new position on board: ");
-    String pos = getUserInput();    
+    System.out.println("Enter old position on board: ");
+    String posOld = getUserInput();    
+    System.out.print("Enter new position: ");
+    String posNew = getUserInput();    
     System.out.println("Computing your move: " + piece
-    + " to: " +pos );
+    +"from: " +posOld +" to: " +posNew );
     this.startChessGame();
     }
     else{
@@ -62,8 +68,9 @@ public class Board{
     this.enterNextMove();
     }
    }
-  private void move(String piece, String newPos){
-   
+  private void move(String piece,String posOld, String posNew){
+  //char firstPosOld = posOld.charAt(0);
+  //int firstPosOld = Integer.parseInt(posOld.charAt(1);
 }
   private void displayBoard(){ 
     for(int i = 0; i < 8; i++){
@@ -75,7 +82,7 @@ public class Board{
      System.out.println();
      System.out.println();
     }
-   System.out.print(spacing+spacing);
+   System.out.print(spacing+spacing+" ");
    for(int i = 0; i<8; i++){
     System.out.print(widthChars[i]+spacing);
    }
